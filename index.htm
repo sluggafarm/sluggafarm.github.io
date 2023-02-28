@@ -40,11 +40,29 @@
         Keepin&apos; the sluggas fed.
       </p>
       
+      <div class="form-group text-center">
+          <button type="button" class="btn btn-primary" value="Connect Wallet to Play" />
+      </div>
+      
     </div>
        
+    <script src="http://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script type="text/javascript">
-          
+        var sluggaapp = {
+          wallets : [], 
+          connectWallet: function () {
+              if (window.ethereum) {
+                  let eth = window.ethereum;
+                  eth.request({ method: 'eth_requestAccounts' })
+                      .then(walletsdata => {
+                          sluggaapp.wallets = walletsdata;
+                      })
+                      .catch(err => { setConnectErrorMessage(err.message); });
+              } else {
+                  alert('cannot connect to MetaMask plugin.');
+              }
+          }
+        };
     </script>
- 
   </body>
 </html>
