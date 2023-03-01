@@ -6,6 +6,7 @@ var sluggaapp = {
             if (window.localStorage) { 
               wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet'); 
               if (wallet) {
+                sluggaapp.wallets = [ wallet ]
                 sluggaapp.connectWallet(); 
               }
             }          
@@ -45,6 +46,17 @@ var sluggaapp = {
            },
           getSluggaFromEtherscan : function () {
               document.querySelector('.slugga-pen').style.display="";
+               
+              let wallet = sluggaapp.wallets[0];
+                    
+              let apikey = "H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1"
+              let addr = "0xb5483d93ee8757055298cdfe7596b36719398487" # no need to change these
+              let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=${addr}&address=$wallet&sort=asc&apikey=${apikey}`;
+              $.ajax({ 
+                  url: etherscan_api_url, success: function (txdata) {
+                              console.log({txdata});         
+                  }   
+              });
           }
         }
         window.setTimeout(function () { sluggaapp.onload(); }, 125);
