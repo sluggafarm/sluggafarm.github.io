@@ -48,7 +48,8 @@
             sluggaapp.wallets = [];
             document.getElementById('connect-button-panel').style.display="";
             document.getElementById('connected-panel').style.display="none";
-            document.getElementById('figure img').style.opacity="1.0";
+            document.querySelector('figure img').style.opacity="1.0";
+            document.querySelector('.lead').style.display="";
           },
           connectWallet: function () {
               if (window.ethereum) {
@@ -59,8 +60,9 @@
                           if (window.localStorage) { window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]); }
                           document.getElementById('walletLabel').innerText = sluggaapp.wallets[0];
                           document.getElementById('connect-button-panel').style.display="none";
+                          document.querySelector('.lead').style.display="none";
                           document.getElementById('connected-panel').style.display="";
-                          document.getElementById('figure img').style.opacity="0.05";
+                          document.querySelector('figure img').style.opacity="0.05";
                       }).catch(err => { alert(err.message); });
               } else {
                   alert('cannot connect to MetaMask plugin.');
