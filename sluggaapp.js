@@ -64,11 +64,9 @@ var sluggaapp = {
                               console.log('deal with sold items.'); // day 1 we presume buy and hold.          
                        }
                        $.each(owned, function (idx, token) {
-                           sluggaapp.getSluggaMetadata(token.tokenID, wallet, function (data) {
-                              let li = `<li class="slugga"><div class="heading">Slugga ${token.tokenID}</div><img src="${data.image}" height="64" /><div><button>A</button><button>B</button><button>C</button></div></li>`;
-                              console.log({ tokenID: token.tokenID, meta: data });       
-                              $('.slugga-pen').append(li);
-                           });
+                           let li = `<li class="slugga"><div class="heading">Slugga ${token.tokenID}</div><button>A</button><button>B</button><button>C</button></div></li>`;
+                           console.log({ tokenID: token.tokenID, meta: data });       
+                           $('.slugga-pen').append(li);
                        });
                   }   
               });
