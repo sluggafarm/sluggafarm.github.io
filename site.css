@@ -10,8 +10,20 @@ ul { list-style: none; }
 ul li { margin-bottom: 10px;}
 .walletLabel { margin: 10px; }
 .slugga-pen {
+     z-index: 1000;
+     position: fixed; 
+     top: 20vh;
+     left: 20vw; 
+     width: 60vw;
      border: solid 2px blue; 
-     background-color: yellow; 
-     padding: 20px; 
-     margin: 20px;
+     padding: 20px;
+}
+
+.slugga-pen .slugga {
+    display: inline-block;
+    margin: 10px;
+}
+
+.slugga-pen .slugga .heading {
+       font-weight: bold;      
 }
