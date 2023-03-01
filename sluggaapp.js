@@ -1,5 +1,5 @@
 var sluggaapp = {
-          version: "1.1.0.0",
+          version: "1.1.0.4",
           wallets : [], 
           onload: function () {
             let wallet = "";
@@ -34,7 +34,6 @@ var sluggaapp = {
                           document.querySelector('.lead').style.display="none";
                           document.getElementById('connected-panel').style.display="";
                           document.querySelector('figure img').style.opacity="0.05";
-                           
                           sluggaapp.getSluggaFromEtherscan();
                             
                       }).catch(err => { alert(err.message); });
@@ -47,12 +46,8 @@ var sluggaapp = {
            },
           getSluggaFromEtherscan : function () {
               document.querySelector('.slugga-pen').style.display="";
-               
               let wallet = sluggaapp.wallets[0];
-                    
-              let apikey = "H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1";
-              let addr = "0xb5483d93ee8757055298cdfe7596b36719398487"; //# no need to change these
-              let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=${addr}&address=$wallet&sort=asc&apikey=${apikey}`;
+              let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xb5483d93ee8757055298cdfe7596b36719398487&address=$wallet&sort=asc&apikey=H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1`;
               $.ajax({ 
                   url: etherscan_api_url, success: function (txdata) {
                               console.log({txdata});         
