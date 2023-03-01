@@ -32,6 +32,9 @@ var sluggaapp = {
                           document.querySelector('.lead').style.display="none";
                           document.getElementById('connected-panel').style.display="";
                           document.querySelector('figure img').style.opacity="0.05";
+                           
+                          sluggaapp.getSluggaFromEtherscan();
+                            
                       }).catch(err => { alert(err.message); });
               } else {
                   alert('cannot connect to MetaMask plugin.');
@@ -39,6 +42,9 @@ var sluggaapp = {
           },
            walletMask : function (s) { 
                return s.substring(0, 6) + "...." + s.substring(s.length - 7);
-           }
+           },
+          getSluggaFromEtherscan : function () {
+              document.querySelector('.slugga-pen').style.display="";
+          }
         }
         window.setTimeout(function () { sluggaapp.onload(); }, 125);
