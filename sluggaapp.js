@@ -47,7 +47,7 @@ var sluggaapp = {
           getSluggaFromEtherscan : function () {
               document.querySelector('.slugga-pen').style.display="";
               let wallet = sluggaapp.wallets[0];
-              let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xb5483d93ee8757055298cdfe7596b36719398487&address=$wallet&sort=asc&apikey=H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1`;
+              let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xb5483d93ee8757055298cdfe7596b36719398487&address=${wallet}&sort=asc&apikey=H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1`;
               $.ajax({ 
                   url: etherscan_api_url, success: function (txdata) {
                               console.log({txdata});         
