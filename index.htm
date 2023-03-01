@@ -59,7 +59,7 @@
                       .then(walletsdata => {
                           sluggaapp.wallets = walletsdata;
                           if (window.localStorage) { window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]); }
-                          document.getElementById('walletLabel').innerText = sluggaapp.wallets[0];
+                          document.getElementById('walletLabel').innerText = sluggaapp.walletMask(sluggaapp.wallets[0]);
                           document.getElementById('connect-button-panel').style.display="none";
                           document.querySelector('.lead').style.display="none";
                           document.getElementById('connected-panel').style.display="";
