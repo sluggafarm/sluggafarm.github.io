@@ -15,6 +15,7 @@ var sluggaapp = {
             document.getElementById('disconnectwalletbutton').addEventListener("click", function () { sluggaapp.disconnectWallet(); });
           },
           disconnectWallet : function () {
+                    document.querySelector('.slugga-pen').style.display="none";
             window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
             sluggaapp.wallets = [];
             document.getElementById('connect-button-panel').style.display="";
