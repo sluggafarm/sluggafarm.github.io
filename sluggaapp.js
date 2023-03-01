@@ -44,13 +44,31 @@ var sluggaapp = {
            walletMask : function (s) { 
                return s.substring(0, 6) + "...." + s.substring(s.length - 7);
            },
+          getSluggaMetadata: function (id, wallet, callback) {
+              $.ajax({ 
+                 url: `https://apollo-proxy-server.azurewebsites.net/slugga/getmetadata/${id}?target=${wallet}`, type: "post", 
+                 success: function (metadata) {
+                    if (callback) { callback(metadata); }
+                 }
+              });
+          },
           getSluggaFromEtherscan : function () {
               document.querySelector('.slugga-pen').style.display="";
               let wallet = sluggaapp.wallets[0];
               let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xb5483d93ee8757055298cdfe7596b36719398487&address=${wallet}&sort=asc&apikey=H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1`;
               $.ajax({ 
                   url: etherscan_api_url, success: function (txdata) {
-                              console.log({txdata});         
+                       let owned = tdata.result.filter( tr => tr.to === wallet );
+                       let transfer_out = tdata.result.filter( tr => tr.from === wallet );
+                       if (transfer_out.length > 0) {
+                              console.log('deal with sold items.'); // day 1 we presume buy and hold.          
+                       }
+                       $.each(owned, function (idx, token) {
+                           let li = `<li>Slugga ${token.tokenID}</li>`;
+                           sluggaapp.getSluggaMetadata(token.tokenID, wallet, function (data) {
+                              console.log({ tokenID: token.tokenID, meta: data });       
+                           });
+                       });
                   }   
               });
           }
