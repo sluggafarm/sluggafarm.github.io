@@ -24,23 +24,33 @@
     <div class="container mt-4">
       <h1> slugga farm </h1> <figure> <img class="farmer" src="images/farmer.png" /> </figure>
       <p class="lead"> Keepin&apos; the sluggas fed. </p>
-      <div class="form-group text-center connect-button-panel"> <button type="button" class="btn btn-primary" id="connectwalletbutton" > Connect Wallet to Play </button> </div>
-      <div class="form-group text-center connected-panel" style="display:none;"> Connected as <span id="walletLabel"> ... </span> </div>
+      <div class="form-group text-center connect-button-panel" id="connect-button-panel"> <button type="button" class="btn btn-primary" id="connectwalletbutton" > Connect Wallet to Play </button> </div>
+      <div class="form-group text-center connected-panel" style="display:none;"> Connected as <span id="walletLabel"> ... </span> <button type="button" class="btn btn-danger btn-sm" id="disconnectwalletbutton" > Disconnect </button> </div>
     </div>
-       
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script type="text/javascript">
         var sluggaapp = {
           wallets : [], 
           onload: function () {
+            let wallet = "";
             console.log('loading slugga app...');
+            if (window.localStorage) {
+                wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet');  
+            }          
+            // apply event handlers
             document.getElementById('connectwalletbutton').addEventListener("click", function () {
                   sluggaapp.connectWallet();
             });
+            document.getElementById('disconnectwalletbutton').addEventListener("click", function () {
+                  sluggaapp.disconnectWallet();
+            });
+            
           },
           disconnectWallet : function () {
             window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
             sluggaapp.wallets = [];
+            document.getElementById('connect-button-panel').style.display="";
+            document.getElementById('connected-panel').style.display="none";
           },
           connectWallet: function () {
               if (window.ethereum) {
@@ -51,8 +61,14 @@
                           if (window.localStorage) {
                               window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]);
                           }
+                          
+                          document.getElementById('walletLabel').innerText = sluggaap.wallets[0];
+                          document.getElementById('connect-button-panel').style.display="none";
+                          document.getElementById('connected-panel').style.display="";
                       })
-                      .catch(err => { setConnectErrorMessage(err.message); });
+                      .catch(err => { 
+                          alert(err.message);
+                      });
               } else {
                   alert('cannot connect to MetaMask plugin.');
               }
