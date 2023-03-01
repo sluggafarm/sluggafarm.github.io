@@ -15,7 +15,7 @@ ul li { margin-bottom: 10px;}
      top: 20vh;
      left: 20vw; 
      width: 60vw;
-     border: solid 2px blue; 
+     border: solid 2px transparent; 
      padding: 20px;
 }
 .slugga-pen .slugga {
