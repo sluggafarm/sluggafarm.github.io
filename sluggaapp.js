@@ -1,4 +1,5 @@
 var sluggaapp = {
+          version: "1.1.0.0",
           wallets : [], 
           onload: function () {
             let wallet = "";
