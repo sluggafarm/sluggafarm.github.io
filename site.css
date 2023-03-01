@@ -18,12 +18,13 @@ ul li { margin-bottom: 10px;}
      border: solid 2px blue; 
      padding: 20px;
 }
-
 .slugga-pen .slugga {
     display: inline-block;
     margin: 10px;
 }
-
 .slugga-pen .slugga .heading {
        font-weight: bold;      
+}
+.connected-panel {
+       position: fixed; top: 3vh; right: 3vw;      
 }
