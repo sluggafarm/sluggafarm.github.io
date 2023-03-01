@@ -9,3 +9,9 @@ a {text-decoration: none; }
 ul { list-style: none; }
 ul li { margin-bottom: 10px;}
 .walletLabel { margin: 10px; }
+.slugga-pen {
+     border: solid 2px blue; 
+     background-color: yellow; 
+     padding: 20px; 
+     margin: 20px;
+}
