@@ -1,5 +1,5 @@
 var sluggaapp = {
-          version: "1.1.0.4",
+          version: "1.1.0.7",
           wallets : [], 
           onload: function () {
             let wallet = "";
@@ -58,8 +58,8 @@ var sluggaapp = {
               let etherscan_api_url = `https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xb5483d93ee8757055298cdfe7596b36719398487&address=${wallet}&sort=asc&apikey=H5XKXE3CHZI58ZX1PSZ483N4A1F8666AY1`;
               $.ajax({ 
                   url: etherscan_api_url, success: function (txdata) {
-                       let owned = tdata.result.filter( tr => tr.to === wallet );
-                       let transfer_out = tdata.result.filter( tr => tr.from === wallet );
+                       let owned = txdata.result.filter( tr => tr.to === wallet );
+                       let transfer_out = txdata.result.filter( tr => tr.from === wallet );
                        if (transfer_out.length > 0) {
                               console.log('deal with sold items.'); // day 1 we presume buy and hold.          
                        }
