@@ -34,16 +34,14 @@
           onload: function () {
             let wallet = "";
             console.log('loading slugga app...');
-            if (window.localStorage) {
-                wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet');  
+            if (window.localStorage) { 
+              wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet'); 
+              if (wallet) {
+                sluggaapp.connectWallet(); 
+              }
             }          
-            // apply event handlers
-            document.getElementById('connectwalletbutton').addEventListener("click", function () {
-                  sluggaapp.connectWallet();
-            });
-            document.getElementById('disconnectwalletbutton').addEventListener("click", function () {
-                  sluggaapp.disconnectWallet();
-            });
+            document.getElementById('connectwalletbutton').addEventListener("click", function () { sluggaapp.connectWallet(); });
+            document.getElementById('disconnectwalletbutton').addEventListener("click", function () { sluggaapp.disconnectWallet(); });
           },
           disconnectWallet : function () {
             window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
@@ -57,17 +55,11 @@
                   eth.request({ method: 'eth_requestAccounts' })
                       .then(walletsdata => {
                           sluggaapp.wallets = walletsdata;
-                          if (window.localStorage) {
-                              window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]);
-                          }
-                          
+                          if (window.localStorage) { window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]); }
                           document.getElementById('walletLabel').innerText = sluggaapp.wallets[0];
                           document.getElementById('connect-button-panel').style.display="none";
                           document.getElementById('connected-panel').style.display="";
-                      })
-                      .catch(err => { 
-                          alert(err.message);
-                      });
+                      }).catch(err => { alert(err.message); });
               } else {
                   alert('cannot connect to MetaMask plugin.');
               }
