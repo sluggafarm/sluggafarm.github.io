@@ -9,63 +9,53 @@
     <link rel="icon" type="image/x-icon" href="https://bellmorecode.com/favicon.ico">
     <style type="text/css">
         * { font-family: 'Atkinson Hyperlegible', sans-serif; } 
-        body {
-          text-align: center; 
-          columns: 1;
-          padding-left: 20vw; padding-right: 20vw; padding-top: 10vh; 
-          line-height: 1.4;
-          font-size: 1.1em;
-        } 
-        .lead { font-size: 1.2em;} 
-      
-      figure img.farmer {border-radius: 50%;}
-      
+        body { text-align: center;  columns: 1;
+               padding-left: 20vw; padding-right: 20vw; padding-top: 10vh; 
+               line-height: 1.4;  font-size: 1.1em; } 
+        .lead { font-size: 1.2em;}       
+        figure img.farmer {border-radius: 50%;}
         h1 { font-weight: 600;}   
         a {text-decoration: none; }
-        
         ul { list-style: none; }
         ul li { margin-bottom: 10px;}
     </style>
   </head>
   <body>
-    
     <div class="container mt-4">
-      <h1>
-        slugga farm
-      </h1>
-      
-      <figure>
-        <img class="farmer" src="images/farmer.png" />
-      </figure>
-  
-      <p class="lead">
-        Keepin&apos; the sluggas fed.
-      </p>
-      
-      <div class="form-group text-center">
-        <button type="button" class="btn btn-primary" onclick="sluggaapp.connectWallet();" > Connect Wallet to Play </button>
-      </div>
-      
+      <h1> slugga farm </h1> <figure> <img class="farmer" src="images/farmer.png" /> </figure>
+      <p class="lead"> Keepin&apos; the sluggas fed. </p>
+      <div class="form-group text-center connect-button-panel"> <button type="button" class="btn btn-primary" onclick="sluggaapp.connectWallet();" > Connect Wallet to Play </button> </div>
+      <div class="form-group text-center connected-panel"> <button type="button" class="btn btn-primary" onclick="sluggaapp.disconnectWallet();" > Connect Wallet to Play </button> </div>
     </div>
        
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script type="text/javascript">
         var sluggaapp = {
           wallets : [], 
+          onload: function () {
+            console.log('loading slugga app...');
+          },
+          disconnectWallet : function () {
+            window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
+            sluggaapp.wallets = [];
+          },
           connectWallet: function () {
               if (window.ethereum) {
                   let eth = window.ethereum;
                   eth.request({ method: 'eth_requestAccounts' })
                       .then(walletsdata => {
                           sluggaapp.wallets = walletsdata;
-                          console.log({walletsdata});
+                          if (window.localStorage) {
+                              window.localStorage.setItem('SluggaFarm_MRU_Wallet', walletsdata[0]);
+                          }
                       })
                       .catch(err => { setConnectErrorMessage(err.message); });
               } else {
                   alert('cannot connect to MetaMask plugin.');
               }
           }
-        };
+        }
+        window.setTimeout(function () { sluggaapp.onload(); }, 125);
     </script>
   </body>
 </html>
