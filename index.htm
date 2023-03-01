@@ -43,7 +43,7 @@
       </p>
       
       <div class="form-group text-center">
-        <button type="button" class="btn btn-primary" > Connect Wallet to Play </button>
+        <button type="button" class="btn btn-primary" onclick="sluggaapp.connectWallet();" > Connect Wallet to Play </button>
       </div>
       
     </div>
@@ -58,6 +58,7 @@
                   eth.request({ method: 'eth_requestAccounts' })
                       .then(walletsdata => {
                           sluggaapp.wallets = walletsdata;
+                          console.log({walletsdata});
                       })
                       .catch(err => { setConnectErrorMessage(err.message); });
               } else {
