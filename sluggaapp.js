@@ -1,15 +1,12 @@
 var sluggaapp = {
-          version: "1.1.0.8",
+          version: "1.2.0.0",
           wallets : [], 
           onload: function () {
             let wallet = "";
             console.log('loading slugga app...');
             if (window.localStorage) { 
               wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet'); 
-              if (wallet) {
-                sluggaapp.wallets = [ wallet ]
-                sluggaapp.connectWallet(); 
-              }
+              if (wallet) { sluggaapp.wallets = [ wallet ]; sluggaapp.connectWallet();  }
             }          
             document.getElementById('connectwalletbutton').addEventListener("click", function () { sluggaapp.connectWallet(); });
             document.getElementById('disconnectwalletbutton').addEventListener("click", function () { sluggaapp.disconnectWallet(); });
@@ -66,7 +63,7 @@ var sluggaapp = {
                               console.log('deal with sold items.'); // day 1 we presume buy and hold.          
                        }
                        $.each(owned, function (idx, token) {
-                           let li = `<li class="slugga"><div class="heading">Slugga ${token.tokenID}</div></li>`;
+                           let li = `<li class="slugga" data-tokenid="${token.tokenID}" ><div class="heading"> #${token.tokenID}</div></li>`;
                            //console.log({ tokenID: token.tokenID, meta: data });       
                            $('.slugga-pen').append(li);
                        });
