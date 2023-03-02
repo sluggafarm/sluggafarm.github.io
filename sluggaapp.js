@@ -81,8 +81,7 @@ var sluggaapp = {
                            });
                            
                            sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
-                               console.log({metadata});       
-                               $(`.slugga[data-token='${token.tokenID}']`).css("background", `url("${metadata.image}")`);
+                               $(`.slugga[data-tokenID='${token.tokenID}']`).css("background", `no-repeat center/100% url('${metadata.image}')`)
                            });
                        });
                   }   
