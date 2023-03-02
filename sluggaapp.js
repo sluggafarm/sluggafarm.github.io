@@ -1,5 +1,6 @@
 var sluggaapp = {
-          version: "1.2.0.0",
+          version: "1.4.0.0",
+          serverState: 'online',
           apiproxy : {
               getSluggaMetadata: function (id, wallet, callback) {
                   $.ajax({ 
@@ -22,10 +23,7 @@ var sluggaapp = {
           onload: function () {
             let wallet = "";
             console.log('loading slugga app...');
-            if (window.localStorage) { 
-              wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet'); 
-              if (wallet) { sluggaapp.wallets = [ wallet ]; sluggaapp.connectWallet();  }
-            }          
+            if (window.localStorage) { wallet = window.localStorage.getItem('SluggaFarm_MRU_Wallet'); if (wallet) { sluggaapp.wallets = [ wallet ]; sluggaapp.connectWallet(); } }          
             document.getElementById('connectwalletbutton').addEventListener("click", function () { sluggaapp.connectWallet(); });
             document.getElementById('disconnectwalletbutton').addEventListener("click", function () { sluggaapp.disconnectWallet(); });
           },
@@ -77,10 +75,20 @@ var sluggaapp = {
                            //console.log({ tokenID: token.tokenID, meta: data });       
                            $('.slugga-pen').append(li);
                            sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
+                               if (sluggaapp.serverState === 'offline') {
+                                        return;         
+                               }
+                               if (slugga.Error && slugga.Error === "server-offline") {
+                                   sluggaapp.serverState = 'offline';
+                                   return;
+                               }
                                console.log({slugga});       
                            });
                            
                            sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
+                                     if (sluggaapp.serverState === 'offline') {
+                                        return;         
+                               }
                                $(`.slugga[data-tokenID='${token.tokenID}']`).css("background", `no-repeat center/100% url('${metadata.image}')`)
                            });
                        });
