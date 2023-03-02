@@ -20,10 +20,15 @@ ul li { margin-bottom: 10px;}
 }
 .slugga-pen .slugga {
     display: inline-block;
-    margin: 10px;
+    margin: 16px;
+    width: 128px; height: 128px;
+    border: solid 1px #555;
+    text-align: center;
+    shadow-box: 5px 5px 5px 5px #cacaca;
 }
 .slugga-pen .slugga .heading {
        font-weight: bold;      
+       text-align: center;
 }
 .connected-panel {
        position: fixed; top: 3vh; right: 3vw;      
