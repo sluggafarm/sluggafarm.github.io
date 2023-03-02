@@ -10,9 +10,7 @@ ul { list-style: none; }
 ul li { margin-bottom: 10px;}
 .walletLabel { margin: 10px; }
 .slugga-pen {
-     z-index: 1000;
-         z-index: 1000;
-    width: 69vw;
+    z-index: 1000;
     border: solid 2px transparent;
     padding: 20px;
     margin-top: -50vh;
