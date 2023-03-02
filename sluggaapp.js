@@ -1,5 +1,23 @@
 var sluggaapp = {
           version: "1.2.0.0",
+          apiproxy : {
+              getSluggaMetadata: function (id, wallet, callback) {
+                  $.ajax({ 
+                     url: `https://apollo-proxy-server.azurewebsites.net/slugga/getmetadata/${id}?target=${wallet}`, type: "post", 
+                     success: function (metadata) {
+                        if (callback) { callback(metadata); }
+                     }
+                  });
+              },
+              getSluggaState: function (id, wallet, callback) {
+                  $.ajax({ 
+                     url: `https://apollo-proxy-server.azurewebsites.net/slugga/getstate/${id}?target=${wallet}`, type: "post", 
+                     success: function (metadata) {
+                        if (callback) { callback(metadata); }
+                     }
+                  });
+              },
+          },
           wallets : [], 
           onload: function () {
             let wallet = "";
@@ -12,13 +30,13 @@ var sluggaapp = {
             document.getElementById('disconnectwalletbutton').addEventListener("click", function () { sluggaapp.disconnectWallet(); });
           },
           disconnectWallet : function () {
-                    document.querySelector('.slugga-pen').style.display="none";
-            window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
-            sluggaapp.wallets = [];
-            document.getElementById('connect-button-panel').style.display="";
-            document.getElementById('connected-panel').style.display="none";
-            document.querySelector('figure img').style.opacity="1.0";
-            document.querySelector('.lead').style.display="";
+              document.querySelector('.slugga-pen').style.display="none";
+              window.localStorage.setItem('SluggaFarm_MRU_Wallet', "");
+              sluggaapp.wallets = [];
+              document.getElementById('connect-button-panel').style.display="";
+              document.getElementById('connected-panel').style.display="none";
+              document.querySelector('figure img').style.opacity="1.0";
+              document.querySelector('.lead').style.display="";
           },
           connectWallet: function () {
               if (window.ethereum) {
@@ -42,14 +60,6 @@ var sluggaapp = {
            walletMask : function (s) { 
                return s.substring(0, 6) + "...." + s.substring(s.length - 7);
            },
-          getSluggaMetadata: function (id, wallet, callback) {
-              $.ajax({ 
-                 url: `https://apollo-proxy-server.azurewebsites.net/slugga/getmetadata/${id}?target=${wallet}`, type: "post", 
-                 success: function (metadata) {
-                    if (callback) { callback(metadata); }
-                 }
-              });
-          },
           getSluggaFromEtherscan : function () {
               document.querySelector('.slugga-pen').style.display="";
                     $('.slugga-pen').empty();
@@ -66,6 +76,10 @@ var sluggaapp = {
                            let li = `<li class="slugga" data-tokenid="${token.tokenID}" ><div class="heading"> #${token.tokenID}</div></li>`;
                            //console.log({ tokenID: token.tokenID, meta: data });       
                            $('.slugga-pen').append(li);
+                           sluggaapp.apiproxy.getState(token.tokenID, wallet, function (slugga) {
+                                        console.log({slugga});       
+                           });
+                                 
                        });
                   }   
               });
