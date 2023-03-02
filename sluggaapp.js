@@ -76,7 +76,7 @@ var sluggaapp = {
                            let li = `<li class="slugga" data-tokenid="${token.tokenID}" ><div class="heading"> #${token.tokenID}</div></li>`;
                            //console.log({ tokenID: token.tokenID, meta: data });       
                            $('.slugga-pen').append(li);
-                           sluggaapp.apiproxy.getState(token.tokenID, wallet, function (slugga) {
+                           sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
                                         console.log({slugga});       
                            });
                                  
