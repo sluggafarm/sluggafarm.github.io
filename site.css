@@ -11,12 +11,11 @@ ul li { margin-bottom: 10px;}
 .walletLabel { margin: 10px; }
 .slugga-pen {
      z-index: 1000;
-     position: fixed; 
-     top: 20vh;
-     left: 20vw; 
-     width: 60vw;
-     border: solid 2px transparent; 
-     padding: 20px;
+         z-index: 1000;
+    width: 60vw;
+    border: solid 2px transparent;
+    padding: 20px;
+    margin-top: -50vh;
 }
 .slugga-pen .slugga {
     display: inline-block;
