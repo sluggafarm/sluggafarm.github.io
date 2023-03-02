@@ -86,8 +86,9 @@ var sluggaapp = {
                            });
                            
                            sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
-                                     if (sluggaapp.serverState === 'offline') {
-                                        return;         
+                               if (sluggaapp.serverState === 'offline') {
+                                    return;
+                                    document.querySelector('h1').style.color='red';
                                }
                                $(`.slugga[data-tokenID='${token.tokenID}']`).css("background", `no-repeat center/100% url('${metadata.image}')`)
                            });
