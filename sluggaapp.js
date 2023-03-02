@@ -77,11 +77,12 @@ var sluggaapp = {
                            //console.log({ tokenID: token.tokenID, meta: data });       
                            $('.slugga-pen').append(li);
                            sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
-                                        console.log({slugga});       
+                               console.log({slugga});       
                            });
                            
                            sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
-                                        console.log({metadata});       
+                               console.log({metadata});       
+                               $(`.slugga[data-token='${token.tokenID']`).css("background", `url("${metadata.image}");`);
                            });
                        });
                   }   
