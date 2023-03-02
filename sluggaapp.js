@@ -79,7 +79,10 @@ var sluggaapp = {
                            sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
                                         console.log({slugga});       
                            });
-                                 
+                           
+                           sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
+                                        console.log({metadata});       
+                           });
                        });
                   }   
               });
