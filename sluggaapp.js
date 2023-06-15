@@ -1,7 +1,8 @@
 var sluggaapp = {
-          version: "1.4.0.0",
+          version: "1.5.0.0",
           serverState: 'online',
           apiproxy : {
+              isOnline: false, 
               getSluggaMetadata: function (id, wallet, callback) {
                   $.ajax({ 
                      url: `https://apollo-proxy-server.azurewebsites.net/slugga/getmetadata/${id}?target=${wallet}`, type: "post", 
@@ -72,26 +73,28 @@ var sluggaapp = {
                        }
                        $.each(owned, function (idx, token) {
                            let li = `<li class="slugga" data-tokenid="${token.tokenID}" ><div class="heading"> #${token.tokenID}</div></li>`;
-                           //console.log({ tokenID: token.tokenID, meta: data });       
+                           console.log({ tokenID: token.tokenID, meta: token });       
                            $('.slugga-pen').append(li);
-                           sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
-                               if (sluggaapp.serverState === 'offline') {
-                                        return;         
-                               }
-                               if (slugga.Error && slugga.Error === "server-offline") {
-                                   sluggaapp.serverState = 'offline';
-                                   return;
-                               }
-                               console.log({slugga});       
-                           });
+                           if (sluggaapp.apiproxy.isOnline === true) {
+                               sluggaapp.apiproxy.getSluggaState(token.tokenID, wallet, function (slugga) {
+                                   if (sluggaapp.serverState === 'offline') {
+                                            return;         
+                                   }
+                                   if (slugga.Error && slugga.Error === "server-offline") {
+                                       sluggaapp.serverState = 'offline';
+                                       return;
+                                   }
+                                   console.log({slugga});       
+                               });
                            
-                           sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
-                               if (sluggaapp.serverState === 'offline') {
-                                    return;
-                                    document.querySelector('h1').style.color='red';
-                               }
-                               $(`.slugga[data-tokenID='${token.tokenID}']`).css("background", `no-repeat center/100% url('${metadata.image}')`)
-                           });
+                               sluggaapp.apiproxy.getSluggaMetadata(token.tokenID, wallet, function (metadata) {
+                                   if (sluggaapp.serverState === 'offline') {
+                                        return;
+                                        document.querySelector('h1').style.color='red';
+                                   }
+                                   $(`.slugga[data-tokenID='${token.tokenID}']`).css("background", `no-repeat center/100% url('${metadata.image}')`)
+                               });
+                           }
                        });
                   }   
               });
